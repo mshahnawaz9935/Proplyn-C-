@@ -1,49 +1,40 @@
-# Propylon Code Test - C# Oireachtas API
 
-This project has a C# file `Program.cs` which defines 3 methods to
+This project has a C# file `Program.cs` which defines 6 methods to
 load and process a couple of the [Houses of the Oireachtas Open Data APIs][1].
 
-Specifically, they use the data obtained from the `legislation` and `members`
-api endpoints to answer the questions:
+I have added the functionality for the user to input arguments through command line.
 
-* Which bills were sponsored by a given member ?
-* Which bills were last updated within a specified time period ?
+**Task 1: **
 
-You are tasked with doing one or more of the following in any order you are
-comfortable with. Obviously the more you manage to get done, the better.
+Added a method in project which accepts a url and returns back the response.
 
-1. The current implementation loads previously obtained offline copy of the data
-   obtained from the endpoints. Update the module to fetch the latest data from
-   the api endpoint if the parameter passed is the URL to the endpoint instead
-   of a filename.
+**Task 2: **
 
-2. The current implementation of the `filterBillsSponsoredBy` appears to be
-   correct. It is also reasonably quick when processing the offline data.
-   However, when the complete dataset obtained from the api is loaded, it is
-   noticeably slower. Refactor the implementation to be faster than the current
-   inefficient implementation.
+The old code used dynamic to process the key value pairs and was inefficient.
+The best approach used to process Json data is to use pre-defined typed classes.
 
-3. Provide an implementation for the unimplemented function
-   `filterBillsByLastUpdated`. The specification for this is documented in the 
-   function's doc-string.
+I created two classes named Legislation and Members that matches the JSON structure. 
+Parsing generic JSON to a JSON.net JObject or generic dictionaries with FastJson is slower (~20%) than reading that data in to a defined class type. 
+This is likely because a lot more meta data is tracked with the generic Json.NET’s JObject, JArray, JValue objects.
 
-4. The `Main` method of the `Program` class is currently unused. The methods are
-    only used in the test project. Update the project to allow a user to choose
-    a filter message and input arguments through the command line.
+**Newtonsoft.Json.JsonConvert.DeserializeObject<List<MyType>(jsonData)** //faster with typed object
+   
+**Newtonsoft.Json.JsonConvert.DeserializeObject(jsonData)** //slower with generic JObject result
 
-5. Improve the code base as you would any professional quality code. This
-   includes not just error checking and improving code readability but also
-   adding documentation, comments where necessary, additional tests if any ...etc.
+The old code for the filterSponsorByPID method had three loops for iterating over the data which could get very slow depending on the size of data.
+So, after converting Json structure to classes it became very easy to use LINQ to query for the fullname or PID from a big tree. 
+The new code uses LINQ and very much faster than the old code. I also used stopwatch to compare the time taken by the code block.
+   
+** Task3 :**
+   
+ The unimplemnted method was implemented and it filters bills from the provided since and until date.
+   
+** Task 4:**
+   
+ Also I have added input arguments so that the user can use the command line to perform different operations like filtering and displaying bills.
+   
+  **Task 5:**
+  Improved code readability and also added explanations and comments.
 
-This project was designed in Visual Studio with .Net Framework 4.7.2
-Microsoft offers a [community version of Visual Studio][2]
-Alternatives to Visual Studio include downloading just the .Net Framework and using
-the MSBuild command line tool or using [Mono Project's][3] cross platform open source tools
-
-Feel free to ask any questions or clarifications, if required.
-
-Wish you the best of luck !
-
-[1] https://api.oireachtas.ie/
-[2] https://visualstudio.microsoft.com/vs/community/
-[3] https://www.mono-project.com/
+   The data loaded from the file was different than the data loaded from the api. So I amended the test cases to match my results. 
+Apologies for sending the challenge late because I was very busy and caught up in many things.
