@@ -25,11 +25,11 @@ The old code for the filterSponsorByPID method had three loops for iterating ove
 So, after converting Json structure to classes it became very easy to use LINQ to query for the fullname or PID from a big tree. 
 The new code uses LINQ and very much faster than the old code. I also used stopwatch to compare the time taken by the code block.
    
-** Task3 :**
+**Task 3 :**
    
  The unimplemnted method was implemented and it filters bills from the provided since and until date.
    
-** Task 4:**
+**Task 4:**
    
  Also I have added input arguments so that the user can use the command line to perform different operations like filtering and displaying bills.
    
