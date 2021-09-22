@@ -4,11 +4,11 @@ load and process a couple of the [Houses of the Oireachtas Open Data APIs][1].
 
 I have added the functionality for the user to input arguments through command line.
 
-**Task 1: **
+**Task 1:**
 
 Added a method in project which accepts a url and returns back the response.
 
-**Task 2: **
+**Task 2:**
 
 The old code used dynamic to process the key value pairs and was inefficient.
 The best approach used to process Json data is to use pre-defined typed classes.
